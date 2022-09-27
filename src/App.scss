@@ -1,0 +1,19 @@
+@import './ScssStyles/variables';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+.App{
+  display: flex;
+  background-color: $background;
+  color:$white;
+  font-family: 'Roboto', sans-serif;
+
+  min-width: 100vw;
+  min-height: 100vh;
+}
+body{
+  margin: 0;
+}
+html *{
+  overflow-x: hidden;
+}
+

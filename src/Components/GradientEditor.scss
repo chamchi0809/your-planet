@@ -1,0 +1,41 @@
+@import '../ScssStyles/variables';
+
+$canvasWidth: 200px;
+
+
+.gradientEditor{
+  width: 50%;
+  height: 300px;
+  margin:15px;
+  overflow-x: visible;
+  canvas{
+    width: 50%;;
+    border: 0px;
+    border-radius: 20px;
+  }
+  .gradientKeys{
+    position: relative;
+    width: 50%;
+    height: 20px;
+    overflow-x: visible;
+  }
+  .gradientKey{
+    position: absolute;
+    background-color: #fff;
+    width: 10px;
+    height: 20px;
+    transform: translateX(-50%);
+    &:hover{
+      background-color: #ccc;
+    }
+    &.dragged{
+      background-color: #aaa;
+    }
+    &.selected{
+      -webkit-box-shadow: 0px 0px 5px 5px $secondary; 
+      box-shadow: 0px 0px 5px 5px $secondary;
+
+    }
+
+  }
+}

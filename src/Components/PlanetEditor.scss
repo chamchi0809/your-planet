@@ -1,0 +1,27 @@
+.planetEditor{
+
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
+  
+
+  &.no-scroll{
+    overflow-y: hidden;
+  }
+  #planetCanvas{
+    border: 1px solid gray;  
+    cursor: all-scroll;
+    width: 49%;
+  }
+  .noiseSettings{
+    float: left;
+    max-width: 100px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .shapeSettingsEditor{
+    overflow: hidden;
+    float: right;
+    width: 50%;
+  }
+}

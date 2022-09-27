@@ -1,0 +1,25 @@
+@import '../../ScssStyles/variables';
+
+$btn-bg : $primary;
+
+.Button{
+  color:black;
+  border-radius: 6px;
+  padding: 6px;
+  border: 0px;
+  font-size: larger;
+  background-color: $btn-bg;
+  &.primary{
+    $btn-bg: $primary;
+  }
+  &.secondary{
+    $btn-bg: $secondary;
+  }
+  &:hover{
+    background-color: darken($color: $btn-bg, $amount: 20%);
+  }
+  &:active{
+    background-color: darken($color: $btn-bg, $amount: 30%);
+  }
+  transition: background-color .2s;
+}
