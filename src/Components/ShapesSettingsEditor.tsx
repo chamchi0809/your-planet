@@ -1,33 +1,55 @@
-import React from 'react'
+import React,{useState, Dispatch, SetStateAction} from 'react'
+import { MdAdd, MdDelete } from 'react-icons/md';
 import { NoiseLayer, ShapeSettings } from '../Mesh/Noise/ShapeSettings'
 import NoiseLayerEditor from './NoiseLayerEditor';
+import Button from './UI/Button';
+import Select from './UI/Select';
 
 interface ShapesSettingsEditorProps{
   shapeSettings:ShapeSettings;
-  setShapeSettings
+  setShapeSettings:Dispatch<SetStateAction<ShapeSettings>>
 }
 
 function ShapesSettingsEditor(props:ShapesSettingsEditorProps) {
   
+  const [selectedLayer, setSelectedLayer] = useState(0);
+
+  const addLayer = ()=>{
+    props.setShapeSettings(prevSettings=>{
+      prevSettings.noiseLayers.push(new NoiseLayer());
+      return {...prevSettings};
+    })
+  }
+
+  const deleteLayer = ()=>{
+    if(props.shapeSettings.noiseLayers.length === 1) return;
+    props.setShapeSettings(prevSettings=>{
+      prevSettings.noiseLayers.splice(selectedLayer, 1);
+      return {...prevSettings};
+    })
+  }
+
   return (
     <div className='shapeSettingsEditor'>
-      planetRadius: <input type={'range'} value={props.shapeSettings.planetRadius} min='.1' max='5' step={.01}
-      onChange={(e)=>{
-        props.setShapeSettings({...props.shapeSettings,planetRadius:Number(e.target.value)});
-      }}
-      />
-      
+
+      <Select colors='darkgray' name="" id="" value={selectedLayer} onChange={(e)=>setSelectedLayer(Number(e.target.value))}>
+        {
+          props.shapeSettings.noiseLayers.map((noiseLayer,i)=>{
+            return(
+              <option key={i} value={i}>{i} : {noiseLayer.noiseSettings.filterType}</option>
+            )
+          })
+        }
+      </Select>
+      <Button colors='darkgray' onClick={addLayer}><MdAdd/></Button>
+      <Button colors='red' onClick={deleteLayer}><MdDelete/></Button>
       {
-        props.shapeSettings.noiseLayers.map((noiseLayer,i)=>{
-          return(
-            <NoiseLayerEditor noiseLayer={noiseLayer} key={i}
-            setNoiseLayer={(newNoiseLayer:NoiseLayer)=>{
-              props.shapeSettings.noiseLayers[i] = newNoiseLayer;
-              props.setShapeSettings({...props.shapeSettings});
-            }}
-            />
-          )
-        })
+        <NoiseLayerEditor noiseLayer={props.shapeSettings.noiseLayers[selectedLayer]}
+        setNoiseLayer={(newNoiseLayer:NoiseLayer)=>{
+          props.shapeSettings.noiseLayers[selectedLayer] = newNoiseLayer;
+          props.setShapeSettings({...props.shapeSettings});
+        }}
+        />
       }
     </div>
   )

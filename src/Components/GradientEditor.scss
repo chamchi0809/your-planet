@@ -1,40 +1,51 @@
+@use 'sass:map';
 @import '../ScssStyles/variables';
 
 $canvasWidth: 200px;
 
 
 .gradientEditor{
-  width: 50%;
-  height: 300px;
+  width: 30%;
+  height: 400px;
   margin:15px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
   overflow-x: visible;
   canvas{
-    width: 50%;;
+    width: 80%;;
     border: 0px;
     border-radius: 20px;
   }
   .gradientKeys{
     position: relative;
-    width: 50%;
+    width: 80%;
     height: 20px;
     overflow-x: visible;
+    margin-bottom: 15px;
   }
   .gradientKey{
+    display: flex;
     position: absolute;
-    background-color: #fff;
-    width: 10px;
-    height: 20px;
+    width: 4%;
+    height: 100%;
     transform: translateX(-50%);
-    &:hover{
-      background-color: #ccc;
+    input[type="color"] {
+      -webkit-appearance: none;
+      border: none;
+      width: 100%;
+      height: 100%;
     }
-    &.dragged{
-      background-color: #aaa;
+    input[type="color"]::-webkit-color-swatch-wrapper {
+      padding: 0;
+    }
+    input[type="color"]::-webkit-color-swatch {
+      border: none;
     }
     &.selected{
-      -webkit-box-shadow: 0px 0px 5px 5px $secondary; 
-      box-shadow: 0px 0px 5px 5px $secondary;
-
+      -webkit-box-shadow: 0px 0px 5px 5px map.get($colors, "secondary"); 
+      box-shadow: 0px 0px 5px 5px map.get($colors, "secondary");
     }
 
   }

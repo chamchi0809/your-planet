@@ -2,16 +2,17 @@ import React, { useState } from 'react'
 
 
 interface ButtonProps{
-  variants:'primary'|'secondary'
+  colors:'primary'|'secondary'|'red'|'darkgray'|'lightgray'
+  
 }
 
 function Button(props:ButtonProps&React.HTMLAttributes<HTMLButtonElement>) {
   return (
     <button
-    className={`Button ${props.variants}'}`}
+    className={`Button-${props.colors}`}
     onClick={props.onClick}
     onMouseDown={props.onMouseDown}
-    >{props.children}</button>
+    ><div className="children">{props.children}</div></button>
   )
 }
 

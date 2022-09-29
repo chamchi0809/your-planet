@@ -28,13 +28,13 @@ function GradientKey(props:GradientKeyProps) {
       colorInputRef.current.click();
     }}
     >
-      <input type="color" ref={colorInputRef} value={ConvertRGBtoHex(props.keyInfo.color)} onChange={(e)=>props.setColor(HexToColor(e.target.value))} style={{display:'none'}}/>
+      <input type="color" ref={colorInputRef} value={ConvertRGBtoHex(props.keyInfo.color)} onChange={(e)=>props.setColor(HexToColor(e.target.value))} />
     </div>
   )
 }
 
 function ColorToHex(color:number) {
-  let hexadecimal = (color*255).toString(16);
+  let hexadecimal = Math.floor(color*255).toString(16);
   return hexadecimal.length == 1 ? "0" + hexadecimal : hexadecimal;
 }
 

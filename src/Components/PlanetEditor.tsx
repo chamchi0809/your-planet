@@ -83,7 +83,7 @@ function PlanetEditor(props:PlanetEditorProps) {
 
   return (
     <div className={`planetEditor ${isUsingCanvas && 'no-scroll'}`}>
-      <canvas id="planetCanvas" ref={canvasRef} width={640} height={360}
+      <canvas id="planetCanvas" ref={canvasRef} width={1920} height={1080}
       onMouseEnter={()=>{
       const html = document.documentElement;
       const {body} = document;
@@ -109,8 +109,8 @@ function PlanetEditor(props:PlanetEditorProps) {
       
       >
       </canvas>
-      <ShapesSettingsEditor shapeSettings={shapeSettings} setShapeSettings={setShapeSettings}/>
       <GradientEditor setGradientImage={setGradientImage}/>
+      <ShapesSettingsEditor shapeSettings={shapeSettings} setShapeSettings={setShapeSettings}/>
     </div>
   )
 }

@@ -29,13 +29,13 @@ export class SimpleNoiseSettings
   minValue:number;
 
   constructor(){
-    this.strength=1;
-    this.numLayers=1;
-    this.baseRoughness=1.5;
-    this.roughness=2;
-    this.persistence=.5;
+    this.strength=0.2;
+    this.numLayers=3;
+    this.baseRoughness=1;
+    this.roughness=2.5;
+    this.persistence=.3;
     this.center=[0,0,0];
-    this.minValue=0;
+    this.minValue=0.7;
   }
 }
 

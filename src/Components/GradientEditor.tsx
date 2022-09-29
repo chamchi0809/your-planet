@@ -14,6 +14,7 @@ import Button from './UI/Button';
 import {
   MdDelete
 } from 'react-icons/md'
+import { defaultColorKeys } from '../Mesh/DefaultColorKeys';
 
 interface GradientEditorProps{
   setGradientImage:(image:string)=>void;
@@ -23,7 +24,7 @@ function GradientEditor(props:GradientEditorProps) {
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const renderer = useRef<GradientRenderer>(new GradientRenderer());
-  const [gradientKeys, setGradientKeys] = useState<IGradientKey[]>([{pos:0.5, color:[1,0,0]}])
+  const [gradientKeys, setGradientKeys] = useState<IGradientKey[]>([...defaultColorKeys])
   const [draggedKey, setDraggedKey] = useState<number>(-1);
   const [selectedKey, setSelectedKey] = useState<number>(-1);
   const getRect = ()=> canvasRef.current?.getBoundingClientRect()
@@ -47,12 +48,19 @@ function GradientEditor(props:GradientEditorProps) {
   }
 
   const deleteKey=(idx:number)=>{
-    if(gradientKeys.length == 1) return;
+    if(gradientKeys.length == 1 || selectedKey==-1) return;
     setGradientKeys(prevKeys=>{
+      setSelectedKey(-1);
       prevKeys.splice(idx, 1);
       return [...prevKeys];
     })
-    setSelectedKey(-1);
+  }
+  const deleteAllKey=()=>{
+    if(gradientKeys.length == 1) return;
+    setGradientKeys(prevKeys=>{
+      setSelectedKey(-1);
+      return [...[prevKeys[0]]];
+    })
   }
 
   useEffect(()=>{
@@ -106,7 +114,8 @@ function GradientEditor(props:GradientEditorProps) {
           })
         }
       </div>
-      <Button variants={'primary'} onClick={()=>deleteKey(selectedKey)}><MdDelete/></Button>
+      <Button colors={'red'} onClick={()=>deleteKey(selectedKey)}><MdDelete/> Delete</Button>
+      <Button colors={'red'} onClick={deleteAllKey}><MdDelete/> Delete All</Button>
     </div>
   )
 }

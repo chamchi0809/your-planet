@@ -1,7 +1,15 @@
-$primary : #00e6f6;
-$secondary : #1f6cab;
-$background : #082a3a;
-$white: #ffffff;
+$colors:(
+  'white': #ffffff,
+  'primary' : #00e6f6,
+  'secondary' : #1f6cab,
+  'red':rgb(255, 61, 61),
+  'darkgray':rgb(64, 68, 75),
+  'lightgray':rgb(185,187,190)
+
+);
+
+
+$background : rgb(54,57,63);
 
 
 
