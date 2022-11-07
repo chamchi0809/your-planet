@@ -1,5 +1,4 @@
 import React, { useRef, useState, VoidFunctionComponent } from 'react'
-import { InversedLerp } from '../mathHelper';
 import { Vec3 } from '../vector';
 import { IGradientKey } from './GradientRenderer'
 

@@ -14,6 +14,8 @@ import bot from '../Assets/bot.png';
 
 export class PlanetRenderer{
 
+  static instance:PlanetRenderer
+
   gl:WebGLRenderingContext;
   program:WebGLProgram;
   vertexShader:WebGLShader;
@@ -43,6 +45,11 @@ export class PlanetRenderer{
   skyboxTexture:WebGLTexture;
   skyMatrixLoc:WebGLUniformLocation;
 
+
+  static getPlanetRenderer(){
+    if(!PlanetRenderer.instance) PlanetRenderer.instance=new PlanetRenderer();
+    return PlanetRenderer.instance;
+  }
 
   initGL(canvas:HTMLCanvasElement){
     this.gl = canvas.getContext('webgl');

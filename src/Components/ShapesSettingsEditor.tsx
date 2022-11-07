@@ -23,8 +23,9 @@ function ShapesSettingsEditor(props:ShapesSettingsEditorProps) {
 
   const deleteLayer = ()=>{
     if(props.shapeSettings.noiseLayers.length === 1) return;
+    setSelectedLayer(0);
     props.setShapeSettings(prevSettings=>{
-      prevSettings.noiseLayers.splice(selectedLayer, 1);
+      prevSettings.noiseLayers= prevSettings.noiseLayers.filter((layer,i)=>i!==selectedLayer);
       return {...prevSettings};
     })
   }
@@ -36,7 +37,7 @@ function ShapesSettingsEditor(props:ShapesSettingsEditorProps) {
         {
           props.shapeSettings.noiseLayers.map((noiseLayer,i)=>{
             return(
-              <option key={i} value={i}>{i} : {noiseLayer.noiseSettings.filterType}</option>
+              <option key={i} value={i}>{i} : {noiseLayer.noiseSettings?.filterType}</option>
             )
           })
         }

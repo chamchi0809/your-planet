@@ -1,17 +1,16 @@
 import React, { useState } from 'react'
 
 
-interface ButtonProps{
+interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement>{
   colors:'primary'|'secondary'|'red'|'darkgray'|'lightgray'
   
 }
 
-function Button(props:ButtonProps&React.HTMLAttributes<HTMLButtonElement>) {
+const Button:React.FC<ButtonProps>=({...props})=>{
   return (
     <button
     className={`Button-${props.colors}`}
-    onClick={props.onClick}
-    onMouseDown={props.onMouseDown}
+    {...props}
     ><div className="children">{props.children}</div></button>
   )
 }

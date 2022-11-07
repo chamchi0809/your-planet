@@ -6,6 +6,8 @@ import { Vec3 } from '../vector';
 
 export class GradientRenderer{
 
+  static instance:GradientRenderer;
+
   gl:WebGLRenderingContext;
   program:WebGLProgram;
   vertexShader:WebGLShader;
@@ -19,6 +21,11 @@ export class GradientRenderer{
   coordsLoc:WebGLUniformLocation;
   coords:number[][];
   colors:number[][][];
+
+  static getGradientRenderer(){
+    if(!GradientRenderer.instance) GradientRenderer.instance = new GradientRenderer();
+    return GradientRenderer.instance;
+  }
 
   initGL(canvas:HTMLCanvasElement){
     this.gl = canvas.getContext('webgl');

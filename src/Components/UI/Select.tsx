@@ -1,19 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, FC } from 'react'
 
 
-interface SelectProps{
+interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement>{
   colors:'primary'|'secondary'|'red'|'darkgray'|'lightgray'
 }
 
-function Select(props:SelectProps&React.SelectHTMLAttributes<HTMLSelectElement>) {
+const Select:React.FC<SelectProps> = ({...props})=>{
   return (
     <select
     className={`Input-${props.colors}`}
-    placeholder={props.placeholder}
-    defaultValue={props.defaultValue}
-    value={props.value}
-    onChange={props.onChange}
-    onMouseDown={props.onMouseDown}
+    {...props}
     >{props.children}</select>
   )
 }

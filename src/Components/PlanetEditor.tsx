@@ -15,15 +15,13 @@ import useDebounce from '../Utils/UseDebounce';
 import GradientEditor from './GradientEditor';
 import useInterval from '../Utils/UseInterval';
 
-interface PlanetEditorProps{
-  
-}
 
-function PlanetEditor(props:PlanetEditorProps) {
+function PlanetEditor() {
+  
+  const renderer = PlanetRenderer.getPlanetRenderer();
   
   const [shapeSettings, setShapeSettings] = useState<ShapeSettings>(new ShapeSettings());
-  const shapeGenerator = useRef(new ShapeGenerator(shapeSettings));
-  const renderer = useRef<PlanetRenderer>(new PlanetRenderer());  
+  const shapeGenerator = ShapeGenerator.getShapeSettings(shapeSettings);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [rotationX, setRotationX] = useState<number>(0);
   const [rotationY, setRotationY] = useState<number>(0);
@@ -36,14 +34,14 @@ function PlanetEditor(props:PlanetEditorProps) {
 
   const pushFace = useCallback((facingDir:number[])=>{
 
-    const newFace = new TerrainFace(100, facingDir, shapeGenerator.current);
+    const newFace = new TerrainFace(100, facingDir, shapeGenerator);
     newFace.MakeVertices();
     return newFace;
   },[])
 
   const makePlanet = useCallback(()=>{
 
-    if(renderer.current.positionBuffer.length>0) renderer.current.clearMeshes();
+    if(renderer.positionBuffer.length>0) renderer.clearMeshes();
 
     const faces = [
       pushFace([1,0,0]),
@@ -55,30 +53,30 @@ function PlanetEditor(props:PlanetEditorProps) {
     ]
     const planetVertices = faces.map(face=>face.points).flat();
     const planetNormals = faces.map(face=>face.verticeNormals).flat();
-    renderer.current.pushMesh(planetVertices, planetNormals);
+    renderer.pushMesh(planetVertices, planetNormals);
   },[])
 
   useEffect(()=>{
     if(!canvasRef.current) return;    
 
-    if(!renderer.current.gl || !renderer.current.program){
-      renderer.current.initGL(canvasRef.current);
-      renderer.current.initScene(vert, frag, skyVert, skyFrag);
+    if(!renderer.gl || !renderer.program){
+      renderer.initGL(canvasRef.current);
+      renderer.initScene(vert, frag, skyVert, skyFrag);
       makePlanet();
     }
-    renderer.current.setPlanetTexture(gradientImage);
+    renderer.setPlanetTexture(gradientImage);
   },[canvasRef.current, rotationX, rotationY, dst, gradientImage])
 
   useEffect(()=>{
-    shapeGenerator.current.OnNoiseSettingsChange(shapeSettings);
+    shapeGenerator.OnNoiseSettingsChange(shapeSettings);
     makePlanet();
-    renderer.current.clearScene();
-    renderer.current.renderScene(rotationX, rotationY, 0, dst,shapeGenerator.current);
+    renderer.clearScene();
+    renderer.renderScene(rotationX, rotationY, 0, dst,shapeGenerator);
   },[debouncedShapeSettings])
 
   useInterval(()=>{
-    renderer.current.clearScene();
-    renderer.current.renderScene(rotationX, rotationY, 0, dst,shapeGenerator.current)
+    renderer.clearScene();
+    renderer.renderScene(rotationX, rotationY, 0, dst,shapeGenerator)
   }, 10)
 
   return (

@@ -7,11 +7,7 @@ $input-bg : white;
 
 @each $name, $color in $colors {
   .Button-#{$name}{
-    // @if $color == 'darkgray'{
-    //   color:white;
-    // }@else{
-    //   color:black;
-    // }  
+
     color:white;
     border-radius: 6px;
     padding: 5px;

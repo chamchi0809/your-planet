@@ -22,8 +22,9 @@ interface GradientEditorProps{
 
 function GradientEditor(props:GradientEditorProps) {
 
+  const renderer = GradientRenderer.getGradientRenderer();
+  
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const renderer = useRef<GradientRenderer>(new GradientRenderer());
   const [gradientKeys, setGradientKeys] = useState<IGradientKey[]>([...defaultColorKeys])
   const [draggedKey, setDraggedKey] = useState<number>(-1);
   const [selectedKey, setSelectedKey] = useState<number>(-1);
@@ -66,15 +67,15 @@ function GradientEditor(props:GradientEditorProps) {
   useEffect(()=>{
     if(!canvasRef.current) return;    
 
-    if(!renderer.current.gl || !renderer.current.program){
-      renderer.current.initGL(canvasRef.current);
-      renderer.current.initScene(vert, frag);
+    if(!renderer.gl || !renderer.program){
+      renderer.initGL(canvasRef.current);
+      renderer.initScene(vert, frag);
     }
-    renderer.current.makePlane([...gradientKeys]);
+    renderer.makePlane([...gradientKeys]);
 
-    renderer.current.clearScene();
+    renderer.clearScene();
 
-    renderer.current.renderScene();
+    renderer.renderScene();
 
     props.setGradientImage(canvasRef.current.toDataURL('png'));
 

@@ -4,10 +4,18 @@ import { ANoiseFilter, CreateNoiseFilter } from './NoiseFilter';
 import { ShapeSettings } from './ShapeSettings';
 
 export class ShapeGenerator{
+
+  static instance:ShapeGenerator;
+
   settings:ShapeSettings;
   noiseFilters:ANoiseFilter[];
   minmax:MinMax=new MinMax();
   seed:number;
+
+  static getShapeSettings(settings:ShapeSettings){
+    if(!ShapeGenerator.instance) ShapeGenerator.instance = new ShapeGenerator(settings);
+    return ShapeGenerator.instance;
+  }
 
   constructor(settings:ShapeSettings){
     this.OnNoiseSettingsChange(settings);

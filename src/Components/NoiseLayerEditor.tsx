@@ -141,8 +141,9 @@ function NoiseLayerEditor(props:NoiseLayerEditorProps) {
   }
 
   return (
+    props.noiseLayer ?
     <div className="noiseLayerEditor">
-      <Select colors='darkgray' name="" id="" value={props.noiseLayer.noiseSettings.filterType} onChange={(e)=>changeFilterType(e.target.value as unknown as FilterType)}>
+      <Select colors='darkgray' name="" id="" value={props.noiseLayer.noiseSettings?.filterType} onChange={(e)=>changeFilterType(e.target.value as unknown as FilterType)}>
         <option value={FilterType.Ridgid}>RidgidNoise</option>
         <option value={FilterType.Simple}>SimpleNoise</option>
       </Select>
@@ -160,16 +161,18 @@ function NoiseLayerEditor(props:NoiseLayerEditorProps) {
       }}/>
       {
         (function(){
-          switch(props.noiseLayer.noiseSettings.filterType){
+          switch(props.noiseLayer.noiseSettings?.filterType){
             case FilterType.Simple:
-              return renderSimpleNoiseSettings(props.noiseLayer.noiseSettings.simpleNoiseSettings);
+              return renderSimpleNoiseSettings(props.noiseLayer?.noiseSettings?.simpleNoiseSettings);
             case FilterType.Ridgid:
-              return renderRidgidNoiseSettings(props.noiseLayer.noiseSettings.ridgidNoiseSettings)
+              return renderRidgidNoiseSettings(props.noiseLayer?.noiseSettings?.ridgidNoiseSettings)
           }
         })()
         
       }
     </div>
+    :
+    <></>
   )
 }
 
