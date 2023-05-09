@@ -1,6 +1,6 @@
 https://your-planet-generator.web.app/
 
-##Procedual Planet Generator
+<h1>Procedual Planet Generator<h1/>
 
-#Made With:
+<h2>Made With:</h2>
 WebGL, React, perlin-noise-3d
